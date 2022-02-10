@@ -1,0 +1,15 @@
+changelog:
+  exclude:
+    labels:
+      - "status:*"
+  categories:
+    - title: Exciting New Features 🎉
+      labels:
+        - pr:feature
+    - title: Bug fixes 🐛
+      labels:
+        - pr:bugfix
+        - pr:hotfix
+    - title: Other Changes
+      labels:
+        - "*"
