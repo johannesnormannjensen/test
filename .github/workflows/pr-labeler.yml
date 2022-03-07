@@ -21,8 +21,9 @@ jobs:
 
             const labels = [branchName.includes('/') && nameToLabel[branchName.split('/')[0]]].filter(x => !!x);
             const issue_number = context.payload.pull_request.number;
-
-            if (label) {
+            const hasLabels = !!labels.length;
+            
+            if (hasLabels) {
               github.rest.issues.addLabels({
                 ...context.repo,
                 issue_number,
