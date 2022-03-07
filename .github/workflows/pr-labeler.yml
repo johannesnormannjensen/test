@@ -20,11 +20,14 @@ jobs:
             }
 
             const label = branchName.includes('/') && nameToLabel[branchName.split('/')[0]]
+            const prNumber = context.payload.pull_request.number;
+            console.log(`label: ${label}`)
+            console.log(`prNumber: ${prNumber}`)
 
             if (label) {
               await github.rest.issues.addLabels({
                 ...context.repo,
-                number: context.payload.pull_request.number,
+                number: prNumber,
                 labels: [label],
               })
             }
