@@ -25,7 +25,7 @@ jobs:
             console.log(`prNumber: ${prNumber}`)
 
             if (label) {
-              await github.rest.issues.addLabels({
+              await github.issues.addLabels({
                 ...context.repo,
                 number: prNumber,
                 labels: [label],
