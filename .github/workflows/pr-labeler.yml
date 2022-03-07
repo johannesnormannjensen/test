@@ -19,16 +19,14 @@ jobs:
               hotfix: 'pr:hotfix',
             }
 
-            const label = branchName.includes('/') && nameToLabel[branchName.split('/')[0]]
-            const prNumber = context.payload.pull_request.number;
-            console.log(`label: ${label}`)
-            console.log(`prNumber: ${prNumber}`)
+            const labels = [branchName.includes('/') && nameToLabel[branchName.split('/')[0]]].filter(x => !!x);
+            const issue_number = context.payload.pull_request.number;
 
             if (label) {
               github.rest.issues.addLabels({
                 ...context.repo,
-                issue_number: prNumber,
-                labels: [label]
+                issue_number,
+                labels,
               })
             }
             
