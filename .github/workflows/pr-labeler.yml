@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
+        github-token: ${{secrets.GITHUB_TOKEN}}
         with:
           script: |
             const branchName = context.payload.pull_request.head.ref
