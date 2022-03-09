@@ -11,26 +11,27 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Figure out if files changed
-        id: changes
-        uses: dorny/paths-filter@v2
-        with:
-          filters: |
-            backend:
-              - '!(UI/**)**'
-            ui:
-              - 'UI/**'
+#       - name: Figure out if files changed
+#         id: changes
+#         uses: dorny/paths-filter@v2
+#         with:
+#           filters: |
+#             backend:
+#               - '!(UI/**)**'
+#             ui:
+#               - 'UI/**'
     
       - name: is-skip
-        if: steps.changes.outputs.backend == 'false'
+        if: ${{ 'true' == 'false' }}
         run: 'echo "No build required" '
         
       - name: build
-        if: steps.changes.outputs.backend == 'true'
+        if: ${{ 'true' == 'false' }}
         run: 'echo "Building..." '
         
       - name: test
-        if: steps.changes.outputs.backend == 'true'
+        if: ${{ 'true' == 'false' }}
+#         if: steps.changes.outputs.backend == 'true'
         run: 'echo "Testing..." '
       
       
