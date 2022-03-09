@@ -3,5 +3,3 @@ hej
 status
 morestuffadded
 ssstatus
-
-nu bør der være build required
