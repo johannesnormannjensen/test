@@ -7,13 +7,9 @@ on:
 
 jobs:
   
-  changes:
+  backend-test:
     runs-on: ubuntu-latest
-
-    outputs:
-      backend-changed: ${{ steps.changes.outputs.backend }}
-      ui-changed: ${{ steps.changes.outputs.UI }}
-
+    
     steps:
       - name: Figure out if files changed
         id: changes
@@ -24,21 +20,16 @@ jobs:
               - '!(UI/**)**'
             ui:
               - 'UI/**'
-
-  backend-test:
-    runs-on: ubuntu-latest
-    needs: [changes]
     
-    steps:
       - name: something
         run: 'echo "No build required" '
         
       - name: somethingelse
-        if: needs.changes.outputs.backend-changed == 'true'
+        if: steps.changes.outputs.backend == 'true'
         run: 'echo "No build required" '
         
       - name: somethingentirelyelse
-        if: ${{ success() }}
+        if: ${{ !skipped() }}
         run: 'echo "No build required" '
       
       
