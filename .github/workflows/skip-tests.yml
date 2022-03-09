@@ -22,6 +22,7 @@ jobs:
               - 'UI/**'
     
       - name: something
+        if: steps.changes.outputs.backend == 'false'
         run: 'echo "No build required" '
         
       - name: somethingelse
@@ -29,7 +30,7 @@ jobs:
         run: 'echo "No build required" '
         
       - name: somethingentirelyelse
-        if: ${{ skipped() }}
+        if: steps.changes.outputs.backend == 'true'
         run: 'echo "No build required" '
       
       
