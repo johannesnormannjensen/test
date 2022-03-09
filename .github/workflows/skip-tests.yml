@@ -4,9 +4,9 @@ on:
 
   pull_request:
     types: [opened, reopened, synchronize]
-    paths: 
-      - '**/*'
-      - '!UI/**/*'
+    paths-ignore: 
+      - '!**/*'
+      - 'UI/**/*'
 
 jobs:
   build:
