@@ -21,16 +21,16 @@ jobs:
             ui:
               - 'UI/**'
     
-      - name: something
+      - name: is-skip
         if: steps.changes.outputs.backend == 'false'
         run: 'echo "No build required" '
         
-      - name: somethingelse
+      - name: build
         if: steps.changes.outputs.backend == 'true'
-        run: 'echo "No build required" '
+        run: 'echo "Building..." '
         
-      - name: somethingentirelyelse
+      - name: test
         if: steps.changes.outputs.backend == 'true'
-        run: 'echo "No build required" '
+        run: 'echo "Testing..." '
       
       
