@@ -4,12 +4,41 @@ on:
 
   pull_request:
     types: [opened, reopened, synchronize]
-    paths-ignore: 
-      - '!**/*'
-      - 'UI/**/*'
 
 jobs:
-  build:
+  
+  changes:
     runs-on: ubuntu-latest
+
+    outputs:
+      backend-changed: ${{ steps.changes.outputs.backend }}
+      ui-changed: ${{ steps.changes.outputs.UI }}
+
     steps:
-      - run: 'echo "No build required" '
+      - name: Figure out if files changed
+        id: changes
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            backend:
+              - '!(UI/**)**'
+            ui:
+              - 'UI/**'
+
+  backend-test:
+    runs-on: ubuntu-latest
+    needs: [changes]
+    
+    steps:
+      - name: something
+        run: 'echo "No build required" '
+        
+      - name: somethingelse
+        if: needs.changes.outputs.backend-changed == 'true'
+        run: 'echo "No build required" '
+        
+      - name: somethingentirelyelse
+        if: ${{ success() }}
+        run: 'echo "No build required" '
+      
+      
