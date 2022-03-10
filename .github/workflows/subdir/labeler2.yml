@@ -1,0 +1,34 @@
+name: PR Labeler2
+
+on: 
+  pull_request:
+
+jobs:
+  label-pr2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const branchName = context.payload.pull_request.head.ref
+            
+            const nameToLabel = {
+              feature: 'pr:feature',
+              chore: 'pr:chore',
+              bugfix: 'pr:bugfix',
+              hotfix: 'pr:hotfix',
+            }
+
+            const labels = [branchName.includes('/') && nameToLabel[branchName.split('/')[0]]].filter(x => !!x);
+            const issue_number = context.payload.pull_request.number;
+            const hasLabels = !!labels.length;
+            
+            if (hasLabels) {
+              github.rest.issues.addLabels({
+                ...context.repo,
+                issue_number,
+                labels,
+              })
+            }
+            
+
