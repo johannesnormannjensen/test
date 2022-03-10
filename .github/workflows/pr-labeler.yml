@@ -30,5 +30,9 @@ jobs:
                 labels,
               })
             }
+      - id: foo
+        uses: ./.github/actions/hello-world-composite-action@main
+        with:
+          who-to-greet: 'Mona the Octocat'
             
 
