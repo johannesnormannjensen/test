@@ -25,6 +25,15 @@ jobs:
       - name: Set vars
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+        
+      - name: Extract tag name
+        id: tag
+        uses: actions/github-script@6
+        with:
+          result-encoding: string
+          script: |
+            const splits = context.payload.ref.split('/');
+            return splits[splits.length -1];
     
       - name: Create file
         run: |
@@ -35,10 +44,10 @@ jobs:
         
       - name: Zip etdir
         run: |
-          zip -r etdir-${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}.zip etdir/
+          zip -r etdir-${{ matrix.configuration }}-${{ steps.tag.outputs.result }}.zip etdir/
           
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            etdir-${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}.zip
+            etdir-${{ matrix.configuration }}-${{ steps.tag.outputs.result }}.zip
