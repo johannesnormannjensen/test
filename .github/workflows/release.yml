@@ -19,20 +19,17 @@ jobs:
           ]
 
     steps:
+      
+      - name: Set vars
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
     
-      - name: Extract tag name
-        id: tag
-        uses: actions/github-script@v6
-        with:
-          script: |
-            return `${{ matrix.configuration }}-${context.payload.ref.replace('refs/tags/', '')}.txt`;
-
       - name: Create file
         run: |
-          echo "${{ matrix.configuration }}" >> ${{ steps.tag.outputs.result }}
+          echo "${{ matrix.configuration }}" >> ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}
           
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ${{ steps.tag.outputs.result }}
+            ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}
