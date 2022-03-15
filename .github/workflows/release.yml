@@ -33,7 +33,7 @@ jobs:
         
       - name: Zip etdir
         run: |
-          zip -r etdir-${{ steps.vars.outputs.tag }}.zip etdir/
+          zip -r etdir-${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}.zip etdir/
           
       - name: Release
         uses: softprops/action-gh-release@v1
