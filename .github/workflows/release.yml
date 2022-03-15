@@ -26,7 +26,7 @@ jobs:
     
       - name: Create file
         run: |
-          mkdir ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}/etsubdir
+          mkdir -p ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}/etsubdir
           echo "${{ matrix.configuration }}" >> ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}/enfil.txt
           
           echo "${{ matrix.configuration }}" >> ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}/etsubdir/enfiltil.txt
