@@ -26,7 +26,8 @@ jobs:
     
       - name: Create file
         run: |
-          echo "${{ matrix.configuration }}" >> ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}
+          mkdir ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}
+          echo "${{ matrix.configuration }}" >> ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}/enfil.txt
           
       - name: Release
         uses: softprops/action-gh-release@v1
