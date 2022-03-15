@@ -25,7 +25,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            return context.payload.ref.replace('refs/tags/', '');
+            return `${{ matrix.configuration }}-${context.payload.ref.replace('refs/tags/', '')}.txt`;
 
       - name: Create file
         run: |
