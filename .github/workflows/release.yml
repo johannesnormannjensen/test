@@ -26,11 +26,13 @@ jobs:
     
       - name: Create file
         run: |
-          mkdir ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}
+          mkdir ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}/etsubdir
           echo "${{ matrix.configuration }}" >> ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}/enfil.txt
+          
+          echo "${{ matrix.configuration }}" >> ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}/etsubdir/enfiltil.txt
           
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}
+            ${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}/*/**
