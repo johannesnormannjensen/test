@@ -29,10 +29,10 @@ jobs:
 
       - name: Create file
         run: |
-          echo "${{ matrix.configuration }}" >> ${{ matrix.configuration }}-${{ steps.tag.outputs.result }}.txt
+          echo "${{ matrix.configuration }}" >> ${{ steps.tag.outputs.result }}
           
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ${{ matrix.configuration }}-${{ steps.tag.outputs.result }}.txt
+            ${{ steps.tag.outputs.result }}
