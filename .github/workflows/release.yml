@@ -39,4 +39,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            etdir-${{ steps.vars.outputs.tag }}.zip
+            etdir-${{ matrix.configuration }}-${{ steps.vars.outputs.tag }}.zip
