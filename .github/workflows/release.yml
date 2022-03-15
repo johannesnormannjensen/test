@@ -3,7 +3,9 @@ name: Create Release
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "hypercare/*/v*.*.*"
+      - "prerelease/v*.*.*"
+      - "release/v*.*.*"
 
 jobs:
   
