@@ -1,0 +1,31 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  
+  package-release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration:
+          [
+            "hej",
+            "med",
+            "dig"
+          ]
+
+    steps:
+
+      - name: Create file
+        run: |
+          echo "${{ matrix.configuration }}" >> ${{ matrix.configuration }}.txt
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            ${{ matrix.configuration }}.txt
