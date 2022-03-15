@@ -22,10 +22,10 @@ jobs:
 
       - name: Create file
         run: |
-          echo "${{ matrix.configuration }}" >> ${{ matrix.configuration }}.txt
+          echo "${{ matrix.configuration }}" >> ${{ matrix.configuration }}-${{ github.ref }}.txt
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ${{ matrix.configuration }}.txt
+            ${{ matrix.configuration }}-${{ github.ref }}.txt
