@@ -3,7 +3,6 @@ inputs:
   name: # change this
     required: true
     description: 'The name'
-    default: 'Bob'
 runs:
   using: 'node16'
   main: 'main.js'
