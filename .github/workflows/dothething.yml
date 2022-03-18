@@ -13,7 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/hello
+      - name: Set the vars
+        uses: ./.github/actions/hello
         with:
           name: ${{ github.event.inputs.name }}
+          
+      - name: Echo the vars
+        run: |
+          echo 'HELLOWITHYOU'
+          echo ${{ env.HELLOWITHYOU }}
             
