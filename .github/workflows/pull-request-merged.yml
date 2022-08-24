@@ -8,7 +8,7 @@ jobs:
   delete-merged-branch:
     runs-on: ubuntu-latest
 
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'pr-feature') || contains(github.event.pull_request.labels.*.name, 'pr-bugfix') }}
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'pr:feature') || contains(github.event.pull_request.labels.*.name, 'pr:bugfix') }}
     steps:
       - uses: actions/github-script@v6
         with:
