@@ -29,9 +29,13 @@ jobs:
 #           echo 'HELLOWITHYOU'
 #           echo ${{ env.HELLOWITHYOU }}
 
+
   doanotherthing:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
       - uses: ./.github/actions/anotheraction
-                      
+        with:
+          version: "someversion"
