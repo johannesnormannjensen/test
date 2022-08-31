@@ -1,4 +1,4 @@
-import { things } from '../utils';
+import { things } from '../utils.mjs';
 
 console.log('hello');
 console.log('heres a list of things', things.join(', '));
