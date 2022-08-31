@@ -2,11 +2,11 @@ name: Do the thing
 
 on: 
   workflow_dispatch:
-    inputs:
-      name:
-        description: 'The name'     
-        required: true
-        default: 'Bob' 
+#     inputs:
+#       name:
+#         description: 'The name'     
+#         required: true
+#         default: 'Bob' 
 
 jobs:
 #   dothehello:
@@ -33,6 +33,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set the vars
-        uses: ./.github/actions/anotheraction
+      - uses: ./.github/actions/anotheraction
                       
