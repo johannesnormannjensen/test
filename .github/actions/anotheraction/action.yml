@@ -1,4 +1,13 @@
 name: 'Another action'
+
+inputs:
+  version:
+    description: "The version of the package to assign."
+    required: true
+
 runs:
-  using: 'node16'
-  main: 'main.mjs'
+  using: "composite"
+
+  steps:
+    - run: node ${{ github.action_path }}/main.mjs "${{ inputs.version }}"
+      shell: bash
