@@ -9,23 +9,30 @@ on:
         default: 'Bob' 
 
 jobs:
-  dothehello:
+#   dothehello:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Set the vars
+#         uses: ./.github/actions/hello
+#         with:
+#           name: ${{ github.event.inputs.name }}
+          
+          
+#       - name: Run the hello input thing
+#         uses: ./.github/actions/hello-world-composite
+#         with:
+#           who-to-greet: 'someone'
+          
+#       - name: Echo the vars
+#         run: |
+#           echo 'HELLOWITHYOU'
+#           echo ${{ env.HELLOWITHYOU }}
+
+  doanotherthing:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set the vars
-        uses: ./.github/actions/hello
-        with:
-          name: ${{ github.event.inputs.name }}
-          
-          
-      - name: Run the hello input thing
-        uses: ./.github/actions/hello-world-composite
-        with:
-          who-to-greet: 'someone'
-          
-      - name: Echo the vars
-        run: |
-          echo 'HELLOWITHYOU'
-          echo ${{ env.HELLOWITHYOU }}
-            
+        uses: ./.github/actions/anotheraction
+                      
