@@ -30,13 +30,20 @@ jobs:
 #           echo ${{ env.HELLOWITHYOU }}
 
 
-  doanotherthing:
+#   doanotherthing:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: 16.x
+#       - uses: ./.github/actions/anotheraction
+#         with:
+#           version: "someversion"
+
+
+  dothejsthing:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 16.x
-      - uses: ./.github/actions/anotheraction
-        with:
-          version: "someversion"
+      - uses: ./.github/actions/jsaction
