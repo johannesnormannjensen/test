@@ -47,8 +47,19 @@ jobs:
 #           version: "someversion"
 
 
-  dothejsthing:
+#   dothejsthing:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: ./.github/actions/jsaction
+      
+  printvars:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: ./.github/actions/jsaction
+      - name: View context attributes
+        uses: actions/github-script@v6
+        with:
+          script: |
+            console.log(context)
+            console.log('\n\n\n\n\n\nHEJMEDDIG\n\n\n\n\n')
+            console.log(process.env)
