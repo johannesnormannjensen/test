@@ -8,6 +8,11 @@ on:
 #         required: true
 #         default: 'Bob' 
 
+
+env: 
+
+  NODE_VERSION: "16.14"
+
 jobs:
 #   dothehello:
 #     runs-on: ubuntu-latest
