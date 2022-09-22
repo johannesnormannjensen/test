@@ -9,7 +9,7 @@ on:
         required: true
 
   schedule:
-    - cron:  '13 11 * * *'
+    - cron:  '22 11 * * *'
     
 jobs: 
 
@@ -17,8 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with: 
-          ref: ${{ github.event.inputs.ref || 'main' }}
             
       - name: Echo sha
         run: echo "${{github.sha}}"
