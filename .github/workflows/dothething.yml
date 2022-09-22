@@ -46,4 +46,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/jsaction
+      
+      - uses: actions/github-script@v6
+        id: getcustomer
+        with:
+          result-encoding: string
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const data = fs.readFileSync(path.join(github.workspace, 'test.json'));
+            let parsed = JSON.parse(data);
+            return parsed.customer;
+            
+      - name: Get result
+        run: echo "${{steps.getcustomer.outputs.result}}"
