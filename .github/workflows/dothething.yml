@@ -35,5 +35,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get result
-        if: ${{ github.event.inputs.dojob2 == true }}
+        if: ${{ github.event.inputs.dojob2 == 'true' }}
         run: echo "job2 ran"
