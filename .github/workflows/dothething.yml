@@ -2,47 +2,16 @@ name: Do the thing
 
 on: 
   workflow_dispatch:
-#     inputs:
-#       name:
-#         description: 'The name'     
-#         required: true
-#         default: 'Bob' 
+    inputs:
+      dojob2:
+        description: Should job2 be run
+        type: boolean
+        default: false
+        required: true 
 
 jobs:
-#   dothehello:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - name: Set the vars
-#         uses: ./.github/actions/hello
-#         with:
-#           name: ${{ github.event.inputs.name }}
-          
-          
-#       - name: Run the hello input thing
-#         uses: ./.github/actions/hello-world-composite
-#         with:
-#           who-to-greet: 'someone'
-          
-#       - name: Echo the vars
-#         run: |
-#           echo 'HELLOWITHYOU'
-#           echo ${{ env.HELLOWITHYOU }}
 
-
-#   doanotherthing:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: actions/setup-node@v1
-#         with:
-#           node-version: 16.x
-#       - uses: ./.github/actions/anotheraction
-#         with:
-#           version: "someversion"
-
-
-  dothejsthing:
+  job1:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -60,3 +29,11 @@ jobs:
             
       - name: Get result
         run: echo "${{steps.getcustomer.outputs.result}}"
+
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get result
+        if: ${{ github.event.inputs.dojob2 == true }}
+        run: echo "job2 ran"
