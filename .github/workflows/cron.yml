@@ -9,7 +9,7 @@ on:
         required: true
 
   schedule:
-    - cron:  '11 13 * * *'
+    - cron:  '13 11 * * *'
     
 jobs: 
 
