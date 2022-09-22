@@ -1,0 +1,27 @@
+name: Deliver package
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref: 
+        description: Use to target a ref for the package
+        default: develop
+        required: true
+
+  schedule:
+    - cron:  '11 13 * * *'
+    
+jobs: 
+
+  do-the-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: 
+          ref: ${{ github.event.inputs.ref }}
+            
+      - name: Echo sha
+        run: echo "${{github.sha}}"
+        
+      - name: Echo ref
+        run: echo "${{ github.event.inputs.ref }}"
