@@ -54,12 +54,12 @@ jobs:
         
   job4:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.test2ReleaseName != '' }}
     steps:
     
       - uses: actions/checkout@v2
       
       - uses: ./.github/composite-actions/deliver-release
-        if: ${{ github.event.inputs.test2ReleaseName != '' }}
         with: 
           name: ${{ github.event.inputs.test2ReleaseName }}
           githubRepository: johannesnormannjensen/test2
