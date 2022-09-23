@@ -8,7 +8,10 @@ on:
         type: boolean
         default: false
         required: true 
-
+      test2ReleaseName:
+        description: Do a release to test2 with this name
+        type: string
+        required: false 
 jobs:
 
   job1:
@@ -37,3 +40,17 @@ jobs:
       - name: Get result
         if: ${{ github.event.inputs.dojob2 == 'true' }}
         run: echo "job2 ran"
+
+
+  job3:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - uses: actions/checkout@v2
+      
+      - uses: ./.github/composite-actions/deliver-release
+        if: ${{ github.event.inputs.test2ReleaseName != '' }}
+        with: 
+          name: ${{ github.event.inputs.test2ReleaseName }}
+          githubRepository: johannesnormannjensen/test2
+          releaseZip: "${{ github.workspace }}/somezipfile.zip"
