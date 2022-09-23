@@ -34,7 +34,7 @@ runs:
         token: ${{ inputs.pat }}
         name: ${{ inputs.name }}
         tag_name: ${{ inputs.name }}
+        repository: ${{ inputs.githubRepository }}
         files: |
           ${{ steps.rename-zip.outputs.result }}
-      env:
-        GITHUB_REPOSITORY: ${{ inputs.githubRepository }}
+          
