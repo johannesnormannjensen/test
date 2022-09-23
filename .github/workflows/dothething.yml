@@ -54,3 +54,4 @@ jobs:
           name: ${{ github.event.inputs.test2ReleaseName }}
           githubRepository: johannesnormannjensen/test2
           releaseZip: "${{ github.workspace }}/somezipfile.zip"
+          pat: ${{ secrets.pat }}
