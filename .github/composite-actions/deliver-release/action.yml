@@ -9,6 +9,9 @@ inputs:
   releaseZip:
     description: 'Path to the release zipfile'
     required: true
+  token: 
+    description: 'The pat'
+    required: true
 
 runs:
   using: "composite"
@@ -28,7 +31,7 @@ runs:
     - name: Deliver release
       uses: softprops/action-gh-release@v1
       with:
-        token: ${{ secrets.PAT }}
+        token: ${{ inputs.pat }}
         name: ${{ inputs.name }}
         tag_name: ${{ inputs.name }}
         files: |
