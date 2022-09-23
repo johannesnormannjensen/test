@@ -9,7 +9,7 @@ inputs:
   releaseZip:
     description: 'Path to the release zipfile'
     required: true
-  token: 
+  pat: 
     description: 'The pat'
     required: true
 
