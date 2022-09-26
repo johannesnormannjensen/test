@@ -52,12 +52,12 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Print result
-        run: echo "${{ needs.customers.outputs.customers && fromJSON(needs.customers.outputs.customers) }}"
+        run: echo "${{ fromJSON(needs.customers.outputs.customers) }}"
       
       - uses: ./.github/composite-actions/take-customers 
         name: Print customers
         id: print-customers
         with: 
-          customers: ${{ needs.customers.outputs.customers }}
+          customers: "${{ needs.customers.outputs.customers }}"
         
         
