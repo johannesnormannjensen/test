@@ -16,7 +16,7 @@ runs:
       with:
         result-encoding: string
         script: |
-          const customers = ${{ inputs.customers }};
-          const customer = ${{ inputs.customer }};
-          core.info(`customers: ${customers}`);
-          core.info(`customer: ${customer}`);
+          const customers = '${{ inputs.customers }}';
+          const customer = '${{ inputs.customer }}';
+          core.info(`customers`);
+          core.info(customers);
