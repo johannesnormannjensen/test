@@ -16,9 +16,11 @@ runs:
       with:
         result-encoding: string
         script: |
-          const customers = '${{ inputs.customers }}';
-          const customer = '${{ inputs.customer }}';
+          let customers;
+          try {
+            customers = JSON.parse('${{ inputs.customers }}');
+          } catch (error) {
+            customers = '["${{ inputs.customer }}"]';
+          }
           core.info(`customers`);
           core.info(customers);
-          core.info(`customer`);
-          core.info(customer);
