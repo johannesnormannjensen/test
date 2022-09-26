@@ -1,6 +1,9 @@
 name: 'Customer outs'
 description: 'Csadasd'
 inputs:
+  customer:
+    description: 'The customer'
+    required: false
   customers:
     description: 'The customers'
     required: false
@@ -13,6 +16,7 @@ runs:
       with:
         result-encoding: string
         script: |
-          const customers = core.getMultilineInput('customers');
-          core.info('customers');
-          core.info(customers);
+          const customers = ${{ inputs.customers }};
+          const customer = ${{ inputs.customer }};
+          core.info(`customers: ${customers}`);
+          core.info(`customer: ${customer}`);
