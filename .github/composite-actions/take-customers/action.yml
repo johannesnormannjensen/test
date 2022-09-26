@@ -1,0 +1,17 @@
+
+name: 'Prints customers provided
+inputs:
+  customers:
+    description: "Array of all customers"
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - id: customers
+      uses: actions/github-script@v6
+      with:
+        result-encoding: string
+        script: |
+          const customers = core.getInput('customers');
+          core.info(`customers: ${customers}`);
