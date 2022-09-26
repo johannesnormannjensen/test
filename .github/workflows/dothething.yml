@@ -19,7 +19,7 @@ jobs:
   customers:
     runs-on: ubuntu-latest
     outputs:
-      customers: ${{ steps.customers.outputs.result }}
+      customers: ${{ steps.customers.outputs.customers }}
     steps:
       - name: Checkout files
         uses: actions/checkout@v2
