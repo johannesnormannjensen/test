@@ -13,6 +13,6 @@ runs:
       with:
         result-encoding: string
         script: |
-          const customers = core.getInput('customers');
+          const customers = core.getMultilineInput('customers');
           core.info('customers');
           core.info(customers);
