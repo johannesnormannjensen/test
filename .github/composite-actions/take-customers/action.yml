@@ -1,16 +1,18 @@
-
-name: 'Prints customers provided
+name: 'Customer outs'
+description: 'Csadasd'
 inputs:
   customers:
-    description: "customers"
+    description: 'The customers'
     required: false
-
 runs:
   using: "composite"
   steps:
-    - id: customers
-      uses: actions/github-script@v6
+
+    - uses: actions/github-script@v6
+      name: Print customers
       with:
+        result-encoding: string
         script: |
           const customers = core.getInput('customers');
-          core.info(`customers: ${customers}`);
+          core.info('customers');
+          core.info(customers);
