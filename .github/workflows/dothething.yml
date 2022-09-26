@@ -22,24 +22,11 @@ jobs:
       customers: ${{ steps.customers.outputs.result }}
     steps:
       - name: Checkout files
-        uses: Bhacaz/checkout-files@v2
-        with:
-          files: .github/test.json
+        uses: actions/checkout@v2
       
-      - uses: actions/github-script@v6
+      - uses: ./.github/composite-actions/customers 
         id: customers
-        with:
-          result-encoding: string
-          script: |
-            const fs = require('fs');
-            const path = require('path');
-            const data = fs.readFileSync(path.join('${{github.workspace}}', '.github/', 'test.json'));
-            const parsed = JSON.parse(data);
-            return JSON.stringify(
-              Object.entries(parsed)
-                .filter(([, value]) => !!value.isRealCustomer)
-                .map(([key]) => key)
-            );
+ 
 
 
   job1:
