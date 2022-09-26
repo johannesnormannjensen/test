@@ -1,3 +1,11 @@
 {
-  "customer": "a fancy name"
+  "customer1": {
+      "isRealCustomer": true,
+  },
+  "customer2": {
+      "isRealCustomer": false,
+  },
+  "customer3": {
+      "isRealCustomer": true,
+  }
 }
