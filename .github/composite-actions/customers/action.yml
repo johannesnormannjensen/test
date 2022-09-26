@@ -1,1 +1,22 @@
 
+name: 'Deliver a Release'
+outputs:
+  customers:
+    description: "Array of all customers"
+    value: ${{ steps.customers.outputs.result }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: customers
+      uses: actions/github-script@v6
+      with:
+        result-encoding: string
+        script: |
+          const fs = require('fs');
+          const path = require('path');
+          const data = fs.readFileSync(path.join('${{ github.workspace }}', '.github', 'test.json'));
+          const customerToConfiguration = JSON.parse(data);
+          const allcustomers = JSON.stringify(Object.keys(customerToConfiguration));
+          core.info(`allcustomers: ${allcustomers}`);
+          return allcustomers;
