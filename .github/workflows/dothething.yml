@@ -41,7 +41,7 @@ jobs:
       
     strategy:
       matrix:
-        customer: ${{ fromJson(needs.matrix.outputs.customers) }}
+        customer: ${{ fromJson(needs.create-matrix.outputs.customers) }}
     
     steps:
       - uses: actions/checkout@v2
