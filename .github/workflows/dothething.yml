@@ -58,6 +58,6 @@ jobs:
         name: Print customers
         id: print-customers
         with: 
-          customers: "${{ needs.customers.outputs.customers }}"
+          customers: ${{ fromJson(needs.customers.outputs.customers) }}
         
         
