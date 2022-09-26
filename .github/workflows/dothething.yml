@@ -59,5 +59,6 @@ jobs:
         id: print-customers
         with: 
           customers: "${{ needs.customers.outputs.customers }}"
+          customer: "en kunde"
         
         
