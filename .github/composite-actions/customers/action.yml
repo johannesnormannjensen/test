@@ -19,4 +19,4 @@ runs:
           const customerToConfiguration = JSON.parse(data);
           const allcustomers = JSON.stringify(Object.keys(customerToConfiguration));
           core.info(`allcustomers: ${allcustomers}`);
-          return JSON.stringify(allcustomers);
+          return allcustomers;
