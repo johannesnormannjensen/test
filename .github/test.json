@@ -7,5 +7,8 @@
   },
   "customer3": {
       "isRealCustomer": true
+  },
+  "customer4": {
+      "isRealCustomer": true
   }
 }
