@@ -2,6 +2,7 @@ name: PR Labeler
 
 on: 
   pull_request:
+    types: [opened, synchronize, reopened, edited]
 
 jobs:
   label-pr:
