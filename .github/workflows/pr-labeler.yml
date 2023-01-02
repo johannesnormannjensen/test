@@ -12,7 +12,9 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const { title } = context.payload.pull_request
+            const title = context.payload.pull_request.title
+            const existingLabels = context.payload.pull_request.labels
+            const labels = [];
             
             const labelToMatches = {
               'pr:build': ['build'],
@@ -29,30 +31,35 @@ jobs:
               'pr:test': ['test'],
               'pr:hotfix': ['hotfix'],
             };
-            
-            const labels = [];
 
             const titleLabel = title && Object.entries(labelToMatches).find(([label,matches]) => matches.some(match => title.startsWith(match)) && label)?.[0];
             if(titleLabel) {
               labels.push(titleLabel)
+            } else {
+              core.setFailed('PR title does not follow contributing rules! \nGo to https://github.com/johannesnormannjensen/test/wiki for contributing rules');
+              return;
             }
             
             const branchName = context.payload.pull_request.head.ref;
-            const shouldDeleteOnMerge = titleLabel && branchName.includes('release') === false
+            const shouldDeleteOnMerge = !['release', 'develop', 'main'].some(match => branchName.includes(match));
             if(shouldDeleteOnMerge) {
               labels.push('pr:delete on merge');
             }
             
-            if (labels.length) {
+            const areNewPRLabelsAdded = labels.lenght && !labels.every(label => existingLabels.contains(label));
+            if (areNewPRLabelsAdded) {
               const issue_number = context.payload.pull_request.number;
+              
+              github.rest.issues.removeLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number,
+                name: existingLabels.filter(label => label.startsWith('pr:')),
+              })
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number,
                 labels,
               });
-            }
-            
-            if(!labels.length) {
-              core.setFailed('PR title does not follow contributing rules! \nGo to https://github.com/johannesnormannjensen/test/wiki for contributing rules')
             }
