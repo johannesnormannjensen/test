@@ -12,8 +12,8 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const title = context.payload.pull_request.title
-            const existingPRLabels = context.payload.pull_request.labels.filter(label => label.startsWith('pr:') && !label.contains('delete on merge'))
+            const title = context.payload.pull_request.title;
+            const existingPRLabels = context.payload.pull_request.labels.filter(label => label?.startsWith('pr:') && !label?.contains('delete on merge'));
             const labels = [];
             
             const labelToMatches = {
