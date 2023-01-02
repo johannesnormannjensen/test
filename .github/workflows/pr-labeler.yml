@@ -13,7 +13,7 @@ jobs:
         with:
           script: |
             const title = context.payload.pull_request.title
-            const existingLabels = context.payload.pull_request.labels
+            const existingPRLabels = context.payload.pull_request.labels.filter(label => label.startsWith('pr:') && !label.contains('delete on merge'))
             const labels = [];
             
             const labelToMatches = {
@@ -47,17 +47,19 @@ jobs:
             }
             
             const areNewPRLabelsAdded = labels.lenght && !labels.every(label => existingLabels.contains(label));
-            if (areNewPRLabelsAdded) {
+            const hasMorePRLabelsThanNeeded = existingPRLabels.length > 1;
+            const shouldSyncLabels = [areNewPRLabelsAdded, hasMorePRLabelsThanNeeded].some(Boolean);
+            if (shouldSyncLabels) {
               const issue_number = context.payload.pull_request.number;
-              const labelsToRemove = existingLabels.filter(label => label.startsWith('pr:'));
-              console.log(`removing ${labelsToRemove}`);
               
+              console.log(`removing ${existingPRLabels}`);
               await github.rest.issues.removeLabel({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number,
-                name: existingLabels.filter(label => label.startsWith('pr:')),
+                name: existingPRLabels,
               })
+              
               console.log(`adding ${labels}`);
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
