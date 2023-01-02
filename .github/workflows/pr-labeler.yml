@@ -13,11 +13,8 @@ jobs:
         with:
           script: |
             const title = context.payload.pull_request.title;
-            const existingLabels = context.payload.pull_request.labels;
-            const existingPRLabels = existingLabels.filter(label => {
-              console.log(`label: ${JSON.stringify(label)}`);
-              return label.startsWith('pr:') && !label.contains('delete on merge')
-            });
+            const existingLabels = context.payload.pull_request.labels.map(label => label.name);
+            const existingPRLabels = existingLabels.filter(label => label.startsWith('pr:') && !label.contains('delete on merge'));
             const labels = [];
             
             const labelToMatches = {
