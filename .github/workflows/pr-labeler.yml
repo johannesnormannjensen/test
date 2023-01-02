@@ -20,7 +20,7 @@ jobs:
             const existingPRLabels = existingLabels.filter(label => label.startsWith('pr:') && !label.includes('delete on merge'));
             const labels = [];
             
-            const branchProtection = github.rest.repos.getBranchProtection({ owner, repo, branch });
+            const branchProtection = await github.rest.repos.getBranchProtection({ owner, repo, branch });
             
             console.log({ branchProtection });
             
