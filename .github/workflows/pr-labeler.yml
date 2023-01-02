@@ -47,6 +47,7 @@ jobs:
               labels.push('pr:delete on merge');
             }
             
+            // logging
             console.log(`labels ${labels}`);
             console.log(`existingLabels ${existingLabels}`);
             const areNewPRLabelsAdded = labels.lenght && !labels.every(label => existingLabels.includes(label));
