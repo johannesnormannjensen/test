@@ -12,23 +12,47 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const pr = context.payload.pull_request;
-            console.log({pr});
-
-            const issue_number = context.payload.pull_request.number;
-            const hasLabels = false;
+            const { title } = context.payload.pull_request
             
-            if (hasLabels) {
-              github.rest.issues.addLabels({
+            const labelToMatches = {
+              'pr:build': ['build'],
+              'pr:ci': ['ci'],
+              'pr:chore': ['chore'],
+              'pr:documentation': ['docs'],
+              'pr:feature': ['feat', 'feature'],
+              'pr:bugfix': ['fix', 'bugfix'],
+              'pr:improvement': ['impr'],
+              'pr:performance': ['perf'],
+              'pr:refactor': ['refact'],
+              'pr:revert': ['revert'],
+              'pr:style': ['style'],
+              'pr:test': ['test'],
+              'pr:hotfix': ['hotfix'],
+            };
+            
+            const labelsToAdd = [];
+
+            const titleLabel = title && Object.entries(labelToMatches).find(([label,matches]) => matches.some(match => title.startsWith(match)) && label);
+            if(titleLabel) {
+              labelsToAdd.push(titleLabel)
+            }
+            
+            const branchName = context.payload.pull_request.head.ref;
+            const shouldDeleteOnMerge = titleLabel && branchName.includes('release') === false
+            if(shouldDeleteOnMerge) {
+              labelsToAdd.push('pr:delete on merge');
+            }
+            
+            if (labelsToAdd.length) {
+              const issue_number = context.payload.pull_request.number;
+              await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number,
-                labels,
-              })
+                labelsToAdd,
+              });
             }
-      - id: foo
-        uses: johannesnormannjensen/test/.github/actions/hello-world-composite@main
-        with:
-          who-to-greet: 'Mona the Octocat'
             
-
+            if(!labelsToAdd.length) {
+              core.setFailed('PR title does not follow contributing rules! \nGo to https://github.com/johannesnormannjensen/test/wiki for contributing rules')
+            }
