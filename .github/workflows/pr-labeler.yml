@@ -30,29 +30,29 @@ jobs:
               'pr:hotfix': ['hotfix'],
             };
             
-            const labelsToAdd = [];
+            const labels = [];
 
             const titleLabel = title && Object.entries(labelToMatches).find(([label,matches]) => matches.some(match => title.startsWith(match)) && label);
             if(titleLabel) {
-              labelsToAdd.push(titleLabel)
+              labels.push(titleLabel)
             }
             
             const branchName = context.payload.pull_request.head.ref;
             const shouldDeleteOnMerge = titleLabel && branchName.includes('release') === false
             if(shouldDeleteOnMerge) {
-              labelsToAdd.push('pr:delete on merge');
+              labels.push('pr:delete on merge');
             }
             
-            if (labelsToAdd.length) {
+            if (labels.length) {
               const issue_number = context.payload.pull_request.number;
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number,
-                labelsToAdd,
+                labels,
               });
             }
             
-            if(!labelsToAdd.length) {
+            if(!labels.length) {
               core.setFailed('PR title does not follow contributing rules! \nGo to https://github.com/johannesnormannjensen/test/wiki for contributing rules')
             }
