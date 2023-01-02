@@ -50,7 +50,7 @@ jobs:
             // logging
             console.log(`labels ${labels}`);
             console.log(`existingLabels ${existingLabels}`);
-            const areNewPRLabelsAdded = labels.lenght && labels.some(label => !existingLabels.includes(label));
+            const areNewPRLabelsAdded = labels.length && labels.some(label => !existingLabels.includes(label));
             
             console.log(`areNewPRLabelsAdded ${areNewPRLabelsAdded}`);
             const shouldSyncLabels = areNewPRLabelsAdded;
