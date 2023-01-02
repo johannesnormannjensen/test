@@ -17,7 +17,7 @@ jobs:
             const existingPRLabels = existingLabels.filter(label => label.startsWith('pr:') && !label.includes('delete on merge'));
             const labels = [];
             
-            console.log({head: context.payload.pull_request.head });
+            console.log({pull_request: context.payload.pull_request });
             
             const labelToMatches = {
               'pr:build': ['build'],
