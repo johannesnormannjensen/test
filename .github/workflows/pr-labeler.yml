@@ -32,7 +32,7 @@ jobs:
             
             const labels = [];
 
-            const titleLabel = title && Object.entries(labelToMatches).find(([label,matches]) => matches.some(match => title.startsWith(match)) && label);
+            const titleLabel = title && Object.entries(labelToMatches).find(([label,matches]) => matches.some(match => title.startsWith(match)) && label)?.[0];
             if(titleLabel) {
               labels.push(titleLabel)
             }
