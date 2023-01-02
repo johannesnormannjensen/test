@@ -14,7 +14,7 @@ jobs:
           script: |
             const title = context.payload.pull_request.title;
             const existingLabels = context.payload.pull_request.labels.map(label => label.name);
-            const existingPRLabels = existingLabels.filter(label => label.startsWith('pr:') && !label.contains('delete on merge'));
+            const existingPRLabels = existingLabels.filter(label => label.startsWith('pr:') && !label.includes('delete on merge'));
             const labels = [];
             
             const labelToMatches = {
@@ -47,7 +47,7 @@ jobs:
               labels.push('pr:delete on merge');
             }
             
-            const areNewPRLabelsAdded = labels.lenght && !labels.every(label => existingLabels.contains(label));
+            const areNewPRLabelsAdded = labels.lenght && !labels.every(label => existingLabels.includes(label));
             const hasMorePRLabelsThanNeeded = existingPRLabels.length > 1;
             const shouldSyncLabels = [areNewPRLabelsAdded, hasMorePRLabelsThanNeeded].some(Boolean);
             if (shouldSyncLabels) {
