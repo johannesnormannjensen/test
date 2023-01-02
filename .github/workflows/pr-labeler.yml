@@ -13,11 +13,16 @@ jobs:
         with:
           script: |
             const title = context.payload.pull_request.title;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const branch = context.payload.pull_request.head.ref;
             const existingLabels = context.payload.pull_request.labels.map(label => label.name);
             const existingPRLabels = existingLabels.filter(label => label.startsWith('pr:') && !label.includes('delete on merge'));
             const labels = [];
             
-            console.log({pull_request: context.payload.pull_request });
+            const branchProtection = github.rest.repos.getBranchProtection({ owner, repo, branch });
+            
+            console.log({ branchProtection });
             
             const labelToMatches = {
               'pr:build': ['build'],
@@ -43,8 +48,8 @@ jobs:
               return;
             }
             
-            const branchName = context.payload.pull_request.head.ref;
-            const shouldDeleteOnMerge = !['release', 'develop', 'main'].some(match => branchName.includes(match));
+            
+            const shouldDeleteOnMerge = !['release', 'develop', 'main'].some(match => branch.includes(match));
             if(shouldDeleteOnMerge) {
               labels.push('pr:delete on merge');
             }
