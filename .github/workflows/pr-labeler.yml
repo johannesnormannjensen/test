@@ -50,7 +50,7 @@ jobs:
             if (areNewPRLabelsAdded) {
               const issue_number = context.payload.pull_request.number;
               const labelsToRemove = existingLabels.filter(label => label.startsWith('pr:'));
-              core.info(`removing ${labelsToRemove}`);
+              console.log(`removing ${labelsToRemove}`);
               
               await github.rest.issues.removeLabel({
                 owner: context.repo.owner,
@@ -58,7 +58,7 @@ jobs:
                 issue_number,
                 name: existingLabels.filter(label => label.startsWith('pr:')),
               })
-              core.info(`adding ${labels}`);
+              console.log(`adding ${labels}`);
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
