@@ -1,0 +1,26 @@
+name: 'Customer outs'
+description: 'Csadasd'
+inputs:
+  customer:
+    description: 'The customer'
+    required: false
+  customers:
+    description: 'The customers'
+    required: false
+runs:
+  using: "composite"
+  steps:
+
+    - uses: actions/github-script@v6
+      name: Print customers
+      with:
+        result-encoding: string
+        script: |
+          let customers;
+          try {
+            customers = JSON.parse('${{ inputs.customers }}');
+          } catch (error) {
+            customers = '["${{ inputs.customer }}"]';
+          }
+          core.info(`customers`);
+          core.info(customers);

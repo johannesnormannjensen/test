@@ -1,0 +1,14 @@
+{
+  "customer1": {
+      "isRealCustomer": true
+  },
+  "customer2": {
+      "isRealCustomer": false
+  },
+  "customer3": {
+      "isRealCustomer": true
+  },
+  "customer4": {
+      "isRealCustomer": true
+  }
+}

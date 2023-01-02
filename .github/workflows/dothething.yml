@@ -2,64 +2,63 @@ name: Do the thing
 
 on: 
   workflow_dispatch:
-#     inputs:
-#       name:
-#         description: 'The name'     
-#         required: true
-#         default: 'Bob' 
-
-
-env: 
-
-  NODE_VERSION: "16.14"
-
+    inputs:
+      dojob2:
+        description: Should job2 be run
+        type: boolean
+        default: false
+        required: true 
+      test2ReleaseName:
+        description: Do a release to test2 with this name
+        type: string
+        required: false 
 jobs:
-#   dothehello:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - name: Set the vars
-#         uses: ./.github/actions/hello
-#         with:
-#           name: ${{ github.event.inputs.name }}
-          
-          
-#       - name: Run the hello input thing
-#         uses: ./.github/actions/hello-world-composite
-#         with:
-#           who-to-greet: 'someone'
-          
-#       - name: Echo the vars
-#         run: |
-#           echo 'HELLOWITHYOU'
-#           echo ${{ env.HELLOWITHYOU }}
 
 
-#   doanotherthing:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: actions/setup-node@v1
-#         with:
-#           node-version: 16.x
-#       - uses: ./.github/actions/anotheraction
-#         with:
-#           version: "someversion"
 
-
-#   dothejsthing:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: ./.github/actions/jsaction
-      
-  printvars:
+  customers:
     runs-on: ubuntu-latest
+    outputs:
+      customers: ${{ steps.customers.outputs.customers }}
     steps:
-      - name: View context attributes
-        uses: actions/github-script@v6
-        with:
-          script: |
-            console.log(context)
-            console.log('\n\n\n\n\n\nHEJMEDDIG\n\n\n\n\n')
-            console.log(process.env)
+      - name: Checkout files
+        uses: actions/checkout@v2
+      
+      - uses: ./.github/composite-actions/customers 
+        id: customers
+        name: Get customers
+
+
+  job1:
+    runs-on: ubuntu-latest
+    needs: customers
+      
+    strategy:
+      matrix:
+        customer: ${{ fromJson(needs.customers.outputs.customers) }}
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Get result
+        run: echo "${{ matrix.customer }}"
+
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: [customers]
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Print result
+        run: echo "${{ fromJSON(needs.customers.outputs.customers) }}"
+      
+      - uses: ./.github/composite-actions/take-customers 
+        name: Print customers
+        id: print-customers
+        with: 
+          customers: "${{ needs.customers.outputs.customers }}"
+          customer: "en kunde"
+        
+        

@@ -1,0 +1,40 @@
+name: 'Deliver a Release'
+inputs:
+  name:
+    description: 'Name of the release'
+    required: true
+  githubRepository:
+    description: 'Github repository to create the release in'
+    required: true
+  releaseZip:
+    description: 'Path to the release zipfile'
+    required: true
+  pat: 
+    description: 'The pat'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Rename zip
+      id: rename-zip
+      uses: actions/github-script@v6
+      with:
+        result-encoding: string
+        script: |
+          const path = require('path');
+          const zipPath = path.join('${{ inputs.releaseZip }}', '..', 'anothername.zip');
+          await io.cp('${{ inputs.releaseZip }}', zipPath);
+          return zipPath;
+
+    - name: Deliver release
+      uses: softprops/action-gh-release@v1
+      with:
+        token: ${{ inputs.pat }}
+        name: ${{ inputs.name }}
+        tag_name: ${{ inputs.name }}
+        repository: ${{ inputs.githubRepository }}
+        files: |
+          ${{ steps.rename-zip.outputs.result }}
+          
