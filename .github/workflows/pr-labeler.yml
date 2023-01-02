@@ -48,8 +48,7 @@ jobs:
             }
             
             const areNewPRLabelsAdded = labels.lenght && !labels.every(label => existingLabels.includes(label));
-            const hasMorePRLabelsThanNeeded = existingPRLabels.length > 1;
-            const shouldSyncLabels = [areNewPRLabelsAdded, hasMorePRLabelsThanNeeded].some(Boolean);
+            const shouldSyncLabels = areNewPRLabelsAdded;
             if (shouldSyncLabels) {
               const issue_number = context.payload.pull_request.number;
               
