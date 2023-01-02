@@ -47,24 +47,18 @@ jobs:
               labels.push('pr:delete on merge');
             }
             
+            console.log(`labels ${labels}`);
+            console.log(`existingLabels ${existingLabels}`);
             const areNewPRLabelsAdded = labels.lenght && !labels.every(label => existingLabels.includes(label));
             const shouldSyncLabels = areNewPRLabelsAdded;
             if (shouldSyncLabels) {
               const issue_number = context.payload.pull_request.number;
+              const owner = context.repo.owner;
+              const repo = context.repo.repo;
               
               console.log(`removing ${existingPRLabels}`);
-              await github.rest.issues.removeLabel({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number,
-                name: existingPRLabels,
-              })
+              await github.rest.issues.removeLabel({ owner, repo, issue_number, name: existingPRLabels });
               
               console.log(`adding ${labels}`);
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number,
-                labels,
-              });
+              await github.rest.issues.addLabels({ owner, repo, issue_number, labels });
             }
