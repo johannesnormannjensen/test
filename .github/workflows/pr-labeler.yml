@@ -21,9 +21,13 @@ jobs:
             const existingPRLabels = existingLabels.filter(label => label.startsWith('pr:') && !label.includes('delete on merge'));
             const labels = [];
             
-            const branchProtection = await github.rest.repos.getBranchProtection({ owner, repo, branch });
             
-            console.log({ branchProtection });
+            let isProtectedBranch = false;
+            try {
+              const branchProtection = await github.rest.repos.getBranchProtection({ owner, repo, branch });
+              isProtectedBranch = true;
+            } catch(error) {
+            }
             
             const labelToMatches = {
               'pr:build': ['build'],
@@ -50,7 +54,7 @@ jobs:
             }
             
             
-            const shouldDeleteOnMerge = !['release', 'develop', 'main'].some(match => branch.includes(match));
+            const shouldDeleteOnMerge = isProtectedBranch || !['release', 'develop', 'main'].some(match => branch.includes(match));
             if(shouldDeleteOnMerge) {
               labels.push('pr:delete on merge');
             }
