@@ -13,6 +13,15 @@ jobs:
         with:
           github-token: ${{ secrets.PAT }}
           script: |
+            
+            const { promises: fs } = require("fs");
+            await fs.writeFile('global.json', JSON.stringify({"sdk":{"version": "${{ inputs.dotnet-version }}"} }));
+            
+            
+            const data = JSON.parse(await fs.readFile('global.json', "utf8"));
+            
+            console.log({data});
+          
             const title = context.payload.pull_request.title;
             const commitType = title.split(':')[0].split('(')[0];
             const owner = context.repo.owner;
