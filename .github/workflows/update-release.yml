@@ -2,7 +2,7 @@ name: Release updated
 
 on: 
   release:
-    types: [published, unpublished, created, edited, deleted, prereleased, released]
+    types: [created, edited]
     
 jobs:
     
