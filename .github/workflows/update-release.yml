@@ -22,5 +22,5 @@ jobs:
               const repo = context.repo.repo;
               const release_id = release.id;
               
-              github.rest.repos.updateRelease({ owner, repo, release_id })({body: 'ny body!'});
+              github.rest.repos.updateRelease({ owner, repo, release_id }, {body: 'ny body!'});
               
