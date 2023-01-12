@@ -12,5 +12,15 @@ jobs:
       steps:    
         - uses: actions/github-script@v6
           with:
+            github-token: ${{ secrets.PAT }}
             script: |
               console.log({context: JSON.stringify(context)});
+
+              const release = context.payload.release;
+              
+              const owner = context.repo.owner;
+              const repo = context.repo.repo;
+              const release_id = release.id;
+              
+              github.rest.repos.updateRelease({ owner, repo, release_id })({body: 'ny body!'});
+              
