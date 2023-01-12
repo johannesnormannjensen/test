@@ -11,7 +11,6 @@ jobs:
       
       steps:    
         - uses: actions/github-script@v6
-          id: Log info
           with:
             script: |
               console.log({event: ${{github.event}} });
