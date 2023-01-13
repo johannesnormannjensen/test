@@ -21,4 +21,7 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const pull = await github.rest.pulls.get({ owner, repo, pull_number: ${{ github.event.inputs.pull_number }} });
-            console.log({pull});
+            console.log({
+              body: pull.data.body,
+              pull
+            });
