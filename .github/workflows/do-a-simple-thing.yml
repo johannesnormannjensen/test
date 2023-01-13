@@ -39,4 +39,5 @@ jobs:
             const repo = context.repo.repo;
             
             const release = await github.rest.repos.getReleaseByTag({ owner, repo, tag: '${{ github.event.inputs.release_tag }}' });
+            console.log({ stringifiedBody: JSON.stringify(release.body) })
             console.log({ release });
