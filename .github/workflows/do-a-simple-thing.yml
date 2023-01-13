@@ -1,0 +1,16 @@
+name: Do a simple thing
+
+on: 
+  workflow_dispatch:
+    
+jobs:
+
+   job:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const pull = await github.rest.pulls.get({ owner, repo, pull_number });
+            console.log({pull});
