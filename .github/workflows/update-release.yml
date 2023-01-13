@@ -13,9 +13,14 @@ jobs:
         - uses: actions/github-script@v6
           with:
             script: |
-              console.log({context: JSON.stringify(context)});
+              const { payload, ...theRest } = context;
+              const release = payload.release;
+              
+              console.log({ 
+                release,
+                ...theRest,
+              });
 
-              const release = context.payload.release;
               
               const owner = context.repo.owner;
               const repo = context.repo.repo;
