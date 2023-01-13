@@ -5,11 +5,14 @@ on:
     inputs:
       pull_number:
         description: the pull request number to log
-        required: true 
+        required: false 
+      release_tag:
+        description: the tag related to a release to log
+        required: false 
     
 jobs:
 
-   job:
+   log-pr:
     runs-on: ubuntu-latest
     if: github.event.inputs.pull_number
     name: Log a pull request by number
@@ -21,7 +24,22 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const pull = await github.rest.pulls.get({ owner, repo, pull_number: ${{ github.event.inputs.pull_number }} });
-            console.log({
-              body: eval(pull.data.body),
-              pull
-            });
+            console.log({ pull });
+            
+            const release = await github.rest.repos.getRelease({ owner, repo, release_id: ${{ github.event.inputs.release_id }} });
+            console.log({ release });
+
+   log-release:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.release_tag
+    name: Log a release by tag
+    
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            
+            const release = await github.rest.repos.getReleaseByTag({ owner, repo, tag: ${{ release_tag }} });
+            console.log({ release });
