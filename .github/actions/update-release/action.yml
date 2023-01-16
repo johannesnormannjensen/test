@@ -1,5 +1,9 @@
 name: 'Update release'
 description: 'Updates a release body'
+inputs:
+  token:
+    description: The token to be used
+    required: true
 runs:
   using: 'node16'
   main: 'main.js'
