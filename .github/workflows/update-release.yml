@@ -18,4 +18,4 @@ jobs:
         id: update-release-body
         name: Update release body
         with: 
-          token: $${{ secrets.PAT }}
+          token: $${{ secrets.GITHUB_TOKEN }}
