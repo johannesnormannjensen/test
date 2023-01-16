@@ -3,6 +3,9 @@ name: Do a simple thing
 on: 
   workflow_dispatch:
     inputs:
+      issue_number:
+        description: the issue number to log
+        required: false 
       pull_number:
         description: the pull request number to log
         required: false 
@@ -25,6 +28,20 @@ jobs:
             const repo = context.repo.repo;
             const pull = await github.rest.pulls.get({ owner, repo, pull_number: ${{ github.event.inputs.pull_number }} });
             console.log({ pull });
+
+   log-issue:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.issue_number
+    name: Log an issue by number
+    
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue = await github.rest.issues.get({ owner, repo, issue_number: ${{ github.event.inputs.issue_number }} });
+            console.log({ issue });
 
    log-release:
     runs-on: ubuntu-latest
