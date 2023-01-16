@@ -1,4 +1,5 @@
-name: 'Update rlease'
+name: 'Update release'
+description: 'Updates a release body'
 runs:
   using: 'node16'
   main: 'main.js'

@@ -9,22 +9,11 @@ jobs:
     update-relese:
       runs-on: ubuntu-latest
       
+      
       steps:    
-        - uses: actions/github-script@v6
-          with:
-            script: |
-              const { payload, ...theRest } = context;
-              const release = payload.release;
-              
-              console.log({ 
-                release,
-                ...theRest,
-              });
-
-              
-              const owner = context.repo.owner;
-              const repo = context.repo.repo;
-              const release_id = release.id;
-              
-              github.rest.repos.updateRelease({ owner, repo, release_id, body: `her er noget ny tekst foran \n${release.body}` });
-              
+      
+      - uses: ./.github/actions/update-release 
+        id: update-release-body
+        name: Update release body
+        with: 
+          token: $${{ github.token }}
