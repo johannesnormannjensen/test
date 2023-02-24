@@ -58,3 +58,14 @@ jobs:
             const release = await github.rest.repos.getReleaseByTag({ owner, repo, tag: '${{ github.event.inputs.release_tag }}' });
             console.log({ stringifiedBody: JSON.stringify(release.body) })
             console.log({ release });
+      
+   set-filename-env:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Set filename name
+        run: |
+          echo "action_state=$(find . -name '*.txt' | head -n 1)" >> $GITHUB_ENV
+      - name: Use the value
+        run: |
+          echo "${{ env.action_state }}"
