@@ -1,0 +1,24 @@
+name: Self hosted workflow
+
+on: 
+  workflow_dispatch:
+    inputs:
+      pull_number:
+        description: the pull request number to log
+        required: true 
+    
+jobs:
+
+   log-pr:
+    runs-on: self-hosted
+    name: Log a pull request by number
+    
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const pull = await github.rest.pulls.get({ owner, repo, pull_number: ${{ github.event.inputs.pull_number }} });
+            console.log({ pull });
+
