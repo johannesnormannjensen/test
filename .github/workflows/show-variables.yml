@@ -9,11 +9,12 @@ jobs:
     
     strategy:
       matrix: 
-        name-value: ${{ toJSON(vars.TESTING_VARIABLES) }}
+        name-value: ${{ fromJSON(vars.TESTING_VARIABLES) }}
     
     steps:
       - name: echo name values
         uses: actions/github-script@v6
         with:
           script: |
-            core.info(${{ matrix.name-value }})
+            core.info(`name: ${{ matrix.name-value.name }}`);
+            core.info(`value: ${{ matrix.name-value.value }}`);
