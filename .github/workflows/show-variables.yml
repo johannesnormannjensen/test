@@ -9,14 +9,15 @@ jobs:
     env:
       thevarname: TESTING_VARIABLES
     
-    strategy:
-      matrix: 
-        name-value: ${{ fromJSON(vars[env.thevarname]) }}
+#     strategy:
+#       matrix: 
+#         name-value: ${{ fromJSON(vars[env.thevarname]) }}
     
     steps:
       - name: echo name values
         uses: actions/github-script@v6
         with:
           script: |
-            core.info(`name: ${{ matrix.name-value.name }}`);
-            core.info(`value: ${{ matrix.name-value.value }}`);
+            core.info(`TESTING_VARIABLES: ${{ fromJSON(vars[env.thevarname]) }}`);
+#             core.info(`name: ${{ matrix.name-value.name }}`);
+#             core.info(`value: ${{ matrix.name-value.value }}`);
