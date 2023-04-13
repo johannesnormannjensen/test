@@ -5,11 +5,13 @@ on:
 jobs:
 
   show-them:
+    env:
+      thevarname: TESTING_VARIABLES
     runs-on: ubuntu-latest
     
     strategy:
       matrix: 
-        name-value: ${{ fromJSON(vars.TESTING_VARIABLES) }}
+        name-value: ${{ fromJSON(vars[$thevarname]) }}
     
     steps:
       - name: echo name values
