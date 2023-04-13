@@ -1,0 +1,17 @@
+name: Show variables
+
+on: 
+  workflow_dispatch:
+jobs:
+
+  show-them:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix: 
+        name-value: ${{ fromJson(vars.TESTING_VARIABLES) }}
+    
+    steps:
+      - name: echo name values
+        run: |
+          echo "${{ matrix.name-value }}"
