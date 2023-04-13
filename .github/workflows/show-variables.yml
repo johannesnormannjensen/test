@@ -13,5 +13,7 @@ jobs:
     
     steps:
       - name: echo name values
-        run: |
-          echo "${{ matrix.name-value }}"
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.info(JSON.stringify(${{ matrix.name-value }}))
