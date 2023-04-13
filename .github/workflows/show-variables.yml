@@ -11,7 +11,7 @@ jobs:
     
     strategy:
       matrix: 
-        name-value: ${{ fromJSON(vars[$thevarname]) }}
+        name-value: ${{ fromJSON(vars[${{thevarname}}]) }}
     
     steps:
       - name: echo name values
