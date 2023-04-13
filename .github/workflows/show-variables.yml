@@ -18,6 +18,6 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            core.info(`TESTING_VARIABLES: ${{ fromJSON(vars[env.thevarname]) }}`);
+            core.info(`TESTING_VARIABLES: ${{ vars[env.thevarname] }}`);
 #             core.info(`name: ${{ matrix.name-value.name }}`);
 #             core.info(`value: ${{ matrix.name-value.value }}`);
