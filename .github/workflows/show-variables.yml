@@ -21,5 +21,7 @@ jobs:
           script: |
             core.info(`TESTING_VARIABLES: ${{ vars[matrix.arr-value] }}`);
             core.info(`first name: ${{ fromJSON(vars[matrix.arr-value])[0].name }}`);
+            const firstEnabled = JSON.parse('${{ fromJSON(vars[matrix.arr-value])[0].enabled }}');
+            core.info(`first is enabed: ${firstEnabled ? 'yes it is' : 'no it is not'}`);
 #             core.info(`name: ${{ matrix.name-value.name }}`);
 #             core.info(`value: ${{ matrix.name-value.value }}`);
