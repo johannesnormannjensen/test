@@ -19,6 +19,6 @@ jobs:
         with:
           script: |
             core.info(`TESTING_VARIABLES: ${{ vars[env.thevarname] }}`);
-            core.info(`first one: ${{ fromJSON(vars[env.thevarname])[0] }}`);
+            core.info(`first name: ${{ fromJSON(vars[env.thevarname])[0].name }}`);
 #             core.info(`name: ${{ matrix.name-value.name }}`);
 #             core.info(`value: ${{ matrix.name-value.value }}`);
