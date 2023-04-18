@@ -11,7 +11,7 @@ jobs:
     
     strategy:
       matrix: 
-        arr-value: ${{ fromJSON(vars.TEST_ARRAY)) }}
+        arr-value: ${{ fromJSON(vars.TEST_ARRAY) }}
 #         name-value: ${{ fromJSON(vars[env.thevarname]) }}
     
     steps:
