@@ -6,11 +6,12 @@ jobs:
 
   show-them:
     runs-on: ubuntu-latest
-    env:
-      thevarname: TESTING_VARIABLES
+#     env:
+#       thevarname: ${{ vars.TEST_ARRAY }}
     
-#     strategy:
-#       matrix: 
+    strategy:
+      matrix: 
+        arr-value: ${{ fromJSON(vars.TEST_ARRAY)) }}
 #         name-value: ${{ fromJSON(vars[env.thevarname]) }}
     
     steps:
@@ -18,7 +19,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            core.info(`TESTING_VARIABLES: ${{ vars[env.thevarname] }}`);
-            core.info(`first name: ${{ fromJSON(vars[env.thevarname])[0].name }}`);
+            core.info(`TESTING_VARIABLES: ${{ vars[matrix.arr-value] }}`);
+            core.info(`first name: ${{ fromJSON(vars[matrix.arr-value])[0].name }}`);
 #             core.info(`name: ${{ matrix.name-value.name }}`);
 #             core.info(`value: ${{ matrix.name-value.value }}`);
