@@ -24,10 +24,10 @@ jobs:
             const firstEnabled = JSON.parse('${{ fromJSON(vars[matrix.arr-value])[0].enabled }}');
             core.info(`first is enabed: ${firstEnabled ? 'yes it is' : 'no it is not'}`);
             
-            core.info(`first hash: ${{ hashFiles('**') }}`)
-            core.info(`second hash: ${{ hashFiles('**', '!UI/**') }}`)
-            core.info(`third hash: ${{ hashFiles('**', '!UI/**', '!.git/**'') }}`)
-            core.info(`fourth hash: ${{ hashFiles('**', '!UI/**', '!.git/**', '!.github/**') }}`)
+            core.info(`first hash: ${{ hashFiles('**') }} `);
+            core.info(`second hash: ${{ hashFiles('**', '!UI/**') }} `);
+            core.info(`third hash: ${{ hashFiles('**', '!UI/**', '!.git/**'') }} `);
+            core.info(`fourth hash: ${{ hashFiles('**', '!UI/**', '!.git/**', '!.github/**') }} `);
             
 #             core.info(`name: ${{ matrix.name-value.name }}`);
 #             core.info(`value: ${{ matrix.name-value.value }}`);
