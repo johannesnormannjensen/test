@@ -37,6 +37,4 @@ jobs:
             core.info(`second hash: ${second} `);
             core.info(`third hash: ${third} `);
             core.info(`fourth hash: ${fourth} `);
-            
-#             core.info(`name: ${{ matrix.name-value.name }}`);
-#             core.info(`value: ${{ matrix.name-value.value }}`);
+          
