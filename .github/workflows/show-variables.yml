@@ -19,6 +19,15 @@ jobs:
       - name: Checkout files
         uses: actions/checkout@v3
         
+      - name: ls
+        run: |
+          /bin/bash -c 
+            " 
+              ls -la . \
+              && cd .. \
+              && ls -la . 
+            "
+        
       - name: echo name values
         uses: actions/github-script@v6
         with:
