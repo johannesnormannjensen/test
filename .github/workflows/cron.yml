@@ -8,8 +8,8 @@ on:
         default: develop
         required: true
 
-  schedule:
-    - cron:  '25 11 * * *'
+#   schedule:
+#     - cron:  '25 11 * * *'
     
 jobs: 
 
