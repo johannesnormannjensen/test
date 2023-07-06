@@ -20,3 +20,11 @@ runs:
           const allcustomers = JSON.stringify(Object.keys(customerToConfiguration));
           core.info(`allcustomers: ${allcustomers}`);
           return allcustomers;
+          
+    - id: set env var
+      shell: bash
+      run: echo "SOMEVAR=somevalue" >> $GITHUB_ENV
+
+    - id: echo env var
+      shell: bash
+      run: echo "${{ env.SOMEVAR }}"
