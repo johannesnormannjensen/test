@@ -65,5 +65,9 @@ jobs:
         with: 
           customers: "${{ needs.customers.outputs.customers }}"
           customer: "en kunde"
+          
+      - name: Print customers
+        run: |
+         echo "${{ env.SOMEENVVAR }}"
         
         
