@@ -58,6 +58,7 @@ jobs:
           echo "We love printing"
           echo "somevalue" > file.txt
           echo "Here is yet another print line"
+          echo "SOMEENVVARTHATWASSET=heeeresthevalue" >> $GITHUB_ENV
       
       - uses: ./.github/composite-actions/take-customers 
         name: Print customers
