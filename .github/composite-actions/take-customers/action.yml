@@ -27,4 +27,5 @@ runs:
     - name: Set env vars
       shell: bash
       run: | 
+        echo "SOMEENVVARTHATWASSET is ${{ env.SOMEENVVARTHATWASSET }}"
         echo "SOMEENVVAR=SOMEENVVARVALUE" >> $GITHUB_ENV
