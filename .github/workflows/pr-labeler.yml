@@ -2,6 +2,7 @@ name: PR Labeler
 
 on: 
   pull_request:
+    types: [opened, synchronize, reopened, edited]
 
 jobs:
   label-pr:
@@ -10,24 +11,74 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.PAT }}
           script: |
-            const pr = context.payload.pull_request;
-            console.log({pr});
-
-            const issue_number = context.payload.pull_request.number;
-            const hasLabels = false;
             
-            if (hasLabels) {
-              github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number,
-                labels,
-              })
+            const { promises: fs } = require("fs");
+            await fs.writeFile('global.json', JSON.stringify({"sdk":{"version": "${{ inputs.dotnet-version }}"} }));
+            
+            
+            const data = JSON.parse(await fs.readFile('global.json', "utf8"));
+            
+            console.log({data});
+          
+            const title = context.payload.pull_request.title;
+            const commitType = title.split(':')[0].split('(')[0];
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const branch = context.payload.pull_request.head.ref;
+            const existingLabels = context.payload.pull_request.labels.map(label => label.name);
+            const existingPRLabels = existingLabels.filter(label => label.startsWith('pr:') && !label.includes('delete on merge'));
+            const labels = [];
+            
+            
+            let isProtectedBranch = false;
+            try {
+              const branchProtection = await github.rest.repos.getBranchProtection({ owner, repo, branch });
+              isProtectedBranch = true;
+            } catch(error) {
             }
-      - id: foo
-        uses: johannesnormannjensen/test/.github/actions/hello-world-composite@main
-        with:
-          who-to-greet: 'Mona the Octocat'
             
+            const labelToMatches = {
+              'pr:build': ['build'],
+              'pr:ci': ['ci'],
+              'pr:chore': ['chore'],
+              'pr:documentation': ['docs'],
+              'pr:feature': ['feat', 'feature'],
+              'pr:bugfix': ['fix', 'bugfix'],
+              'pr:improvement': ['impr', 'improvement'],
+              'pr:performance': ['perf', 'performance'],
+              'pr:refactor': ['refact', 'refactor'],
+              'pr:revert': ['revert'],
+              'pr:style': ['style'],
+              'pr:test': ['test'],
+              'pr:hotfix': ['hotfix'],
+            };
 
+            const titleLabel = commitType && Object.entries(labelToMatches).find(([label,matches]) => matches.some(match => commitType === match) && label)?.[0];
+            if(titleLabel) {
+              labels.push(titleLabel)
+            } else {
+              core.setFailed('PR title does not follow contributing rules! \nGo to https://github.com/johannesnormannjensen/test/wiki for contributing rules');
+              return;
+            }
+            
+            
+            const shouldDeleteOnMerge = isProtectedBranch || !['release', 'develop', 'main'].some(match => branch.includes(match));
+            if(shouldDeleteOnMerge) {
+              labels.push('pr:delete on merge');
+            }
+            
+            const areNewPRLabelsAdded = labels.length && labels.some(label => !existingLabels.includes(label));
+            const shouldSyncLabels = areNewPRLabelsAdded;
+            if (shouldSyncLabels) {
+              const issue_number = context.payload.pull_request.number;
+              const owner = context.repo.owner;
+              const repo = context.repo.repo;
+              
+              if(existingPRLabels.length) {
+                await github.rest.issues.removeLabel({ owner, repo, issue_number, name: existingPRLabels });
+              }
+              
+              await github.rest.issues.addLabels({ owner, repo, issue_number, labels });
+            }
