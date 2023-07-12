@@ -24,3 +24,7 @@ runs:
           }
           core.info(`customers`);
           core.info(customers);
+    - name: Set env vars
+      shell: bash
+      run: | 
+        echo "SOMEENVVAR=SOMEENVVARVALUE" >> $GITHUB_ENV
