@@ -2,16 +2,7 @@ name: Do the thing
 
 on: 
   workflow_dispatch:
-    inputs:
-      dojob2:
-        description: Should job2 be run
-        type: boolean
-        default: false
-        required: true 
-      test2ReleaseName:
-        description: Do a release to test2 with this name
-        type: string
-        required: false 
+  
 jobs:
 
   checkout-job:
@@ -20,7 +11,7 @@ jobs:
       customers: ${{ steps.customers.outputs.customers }}
     steps:
       - name: Checkout files except .github
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with: 
           filter: |
             .github
@@ -30,7 +21,7 @@ jobs:
           ls -la .
 
       - name: Checkout only .github
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with: 
           sparse-checkout: |
             .github
