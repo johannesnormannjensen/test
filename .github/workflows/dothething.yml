@@ -21,8 +21,9 @@ jobs:
       - name: Checkout only .github
         uses: actions/checkout@v4
         with: 
-          clean: false
           ref: develop
+          clean: false
+          sparse-checkout-cone-mode: false
           sparse-checkout: |
             .github
       
