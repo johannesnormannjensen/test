@@ -15,7 +15,7 @@ jobs:
       
       - name: List root dir
         run: |
-          ls -la .
+          ls -la .github
 
       - name: Checkout only .github
         uses: actions/checkout@v4
@@ -27,4 +27,4 @@ jobs:
       
       - name: List root dir
         run: |
-          ls -la .
+          ls -la .github
