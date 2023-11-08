@@ -13,8 +13,9 @@ jobs:
       - name: Checkout files except .github
         uses: actions/checkout@v4
       
-      - name: List root dir
+      - name: List dirs
         run: |
+          ls -la .
           ls -la .github
 
       - name: Checkout only .github
@@ -25,6 +26,7 @@ jobs:
           sparse-checkout: |
             .github
       
-      - name: List root dir
+      - name: List dirs
         run: |
+          ls -la .
           ls -la .github
