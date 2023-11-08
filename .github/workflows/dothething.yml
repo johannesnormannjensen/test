@@ -12,8 +12,6 @@ jobs:
     steps:
       - name: Checkout files except .github
         uses: actions/checkout@v4
-        with: 
-          filter: '.github'
       
       - name: List root dir
         run: |
@@ -22,6 +20,7 @@ jobs:
       - name: Checkout only .github
         uses: actions/checkout@v4
         with: 
+          clean: false
           sparse-checkout: |
             .github
       
