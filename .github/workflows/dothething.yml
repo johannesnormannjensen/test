@@ -13,8 +13,7 @@ jobs:
       - name: Checkout files except .github
         uses: actions/checkout@v4
         with: 
-          filter: |
-            .github
+          filter: '.github'
       
       - name: List root dir
         run: |
