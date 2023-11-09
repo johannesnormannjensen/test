@@ -25,7 +25,7 @@ jobs:
         with: 
           ref: develop
           clean: false
-          sparse-checkout-cone-mode: false
+          fetch-depth: 0
           sparse-checkout: |
             .github
       
