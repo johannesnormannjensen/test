@@ -12,6 +12,7 @@ on:
 jobs:
 
   checkout-job:
+    environment: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
     outputs:
       customers: ${{ steps.customers.outputs.customers }}
