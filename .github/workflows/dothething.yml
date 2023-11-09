@@ -2,6 +2,12 @@ name: Do the thing
 
 on: 
   workflow_dispatch:
+    inputs:
+
+      environment:
+        description: Environment
+        type: environment
+        required: true
   
 jobs:
 
@@ -26,3 +32,8 @@ jobs:
         run: |
           ls -la .
           ls -la .github
+      
+      - name: echo env var
+        run: |
+          echo "${{ vars.t1 }}"
+          
