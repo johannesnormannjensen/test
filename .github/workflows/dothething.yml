@@ -19,7 +19,8 @@ jobs:
           ls -la .github
 
       - run: |
-          git checkout origin/develop .github
+          git fetch origin develop --depth 1
+          git checkout origin/develop --no-overlay -- .github
       
       - name: List dirs
         run: |
