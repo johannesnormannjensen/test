@@ -12,22 +12,14 @@ jobs:
     steps:
       - name: Checkout files except .github
         uses: actions/checkout@v4
-        with: 
-          clean: false
       
       - name: List dirs
         run: |
           ls -la .
           ls -la .github
 
-      - name: Checkout only .github
-        uses: actions/checkout@v4
-        with: 
-          ref: develop
-          clean: false
-          fetch-depth: 0
-          sparse-checkout: |
-            .github
+      - run: |
+          git checkout origin/develop .github
       
       - name: List dirs
         run: |
