@@ -1,0 +1,24 @@
+name: Call me
+
+on:
+  workflow_call:
+    inputs:
+      name: 
+        description: Just some name
+        required: true
+    
+jobs: 
+
+  do-the-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+            
+      - name: Echo sha
+        run: echo "${{github.sha}}"
+        
+      - name: Echo ref
+        run: echo "${{ github.ref }}"
+        
+      - name: Echo name
+        run: echo "${{ github.event.inputs.name }}"
