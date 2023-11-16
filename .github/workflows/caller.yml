@@ -10,6 +10,6 @@ on:
 jobs: 
 
   call-calleme:
-    uses: ./.github/workflows/callme.yml
+    uses: ./.github/workflows/c/callme.yml
     with:
       name: ${{ github.event.inputs.name }}
