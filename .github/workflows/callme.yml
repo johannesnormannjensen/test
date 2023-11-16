@@ -5,6 +5,7 @@ on:
     inputs:
       name: 
         description: Just some name
+        type: string
         required: true
     
 jobs: 
