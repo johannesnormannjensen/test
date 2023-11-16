@@ -3,13 +3,13 @@ name: Caller
 on:
   workflow_dispatch:
     inputs:
-      name: 
+      name:   
         description: Just some name
         required: true
     
 jobs: 
 
   call-calleme:
-    uses: .github/workflows/callme.yml
+    uses: ./.github/workflows/callme.yml
     with:
       name: ${{ github.event.inputs.name }}
