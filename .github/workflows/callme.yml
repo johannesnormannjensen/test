@@ -17,7 +17,7 @@ jobs:
             
       - name: 'exit 1 if name is "a"'
         run: |
-          if [ "${{ github.event.inputs.name }}" = "a" ]; then
+          if [ "${{ inputs.name }}" = "a" ]; then
               exit 1
           fi
         
