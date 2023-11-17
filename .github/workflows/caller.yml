@@ -5,6 +5,7 @@ on:
     inputs:
       names:   
         description: json string names array
+        type: string
         required: true
     
 jobs: 
