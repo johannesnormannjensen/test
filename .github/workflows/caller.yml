@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        something: ${{ fromJson(github.event.inputs.names) }}
+        something: [a, b, c]
     uses: ./.github/workflows/callme.yml
     with:
       name: '${{ matrix.something }}'
