@@ -10,10 +10,10 @@ on:
 jobs: 
 
   call-calleme:
-    uses: ./.github/workflows/callme.yml
     strategy:
       fail-fast: false
       matrix: 
         something: ${{ fromJson(github.event.inputs.names) }}
+    uses: ./.github/workflows/callme.yml
     with:
       name: '${{ matrix.something }}'
