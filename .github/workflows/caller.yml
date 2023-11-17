@@ -3,8 +3,8 @@ name: Caller
 on:
   workflow_dispatch:
     inputs:
-      name:   
-        description: Just some name
+      names:   
+        description: json string names array
         required: true
     
 jobs: 
@@ -13,5 +13,7 @@ jobs:
     uses: ./.github/workflows/callme.yml
     strategy:
       fail-fast: false
+      matrix: 
+        name: ${{ fromJSON(${{ github.event.inputs.names }}) }}
     with:
-      name: ${{ github.event.inputs.name }}
+      name: ${{ matrix.name }}
