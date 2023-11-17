@@ -11,5 +11,7 @@ jobs:
 
   call-calleme:
     uses: ./.github/workflows/callme.yml
+    strategy:
+      fail-fast: false
     with:
       name: ${{ github.event.inputs.name }}
