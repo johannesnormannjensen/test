@@ -14,6 +14,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix: 
-        name: ${{ fromJSON(github.event.inputs.names) }}
+        name: ${{ github.event.inputs.names }}
     with:
       name: '${{ toJSON(matrix.name) }}'
