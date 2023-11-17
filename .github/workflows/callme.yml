@@ -1,7 +1,4 @@
 name: Call me
-concurrency:
-  group: callme-${{ github.event.inputs.name }}
-  cancel-in-progress: true
 
 on:
   workflow_call:
