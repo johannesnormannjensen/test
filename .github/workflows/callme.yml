@@ -27,5 +27,8 @@ jobs:
       - name: Echo ref
         run: echo "${{ github.ref }}"
         
+      - name: Echo event
+        run: echo "${{ toJSON(github.event) }}"
+        
       - name: Echo name
         run: echo "${{ github.event.inputs.name }}"
