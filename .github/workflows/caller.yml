@@ -16,4 +16,4 @@ jobs:
       matrix: 
         name: ${{ fromJSON(github.event.inputs.names) }}
     with:
-      name: '${{ matrix.name }}'
+      name: '${{ toJSON(matrix.name) }}'
