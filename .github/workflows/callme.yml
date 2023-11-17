@@ -18,6 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
             
+      - name: 'exit 1 if name is "a"'
+        run: |
+          if [ "${{ github.event.inputs.name }}" = "a" ]; then
+              exit 1
+          fi
+        
       - name: Echo sha
         run: echo "${{github.sha}}"
         
