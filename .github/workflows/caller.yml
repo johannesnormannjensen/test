@@ -2,19 +2,14 @@ name: Caller
 
 on:
   workflow_dispatch:
-    inputs:
-      names:   
-        description: json string names array
-        type: string
-        required: true
     
 jobs: 
 
-  call-calleme:
+  call-callme:
     strategy:
       fail-fast: false
       matrix: 
-        something: [a, b, c]
-    uses: ./.github/workflows/callme.yml
+        ref: [main, develop]
+    uses: ./.github/workflows/callme.yml@${{ matrix.ref }}
     with:
-      name: '${{ matrix.something }}'
+      name: 'hello from ${{ matrix.ref }}'
