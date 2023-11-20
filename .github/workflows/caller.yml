@@ -10,6 +10,6 @@ jobs:
       fail-fast: false
       matrix: 
         ref: [main, develop]
-    uses: johannesnormannjensen/test/.github/workflows/callme.yml@${{ matrix.ref }}
+    uses: johannesnormannjensen/test/.github/workflows/callme.yml@${{matrix.ref}}
     with:
       name: 'hello from ${{ matrix.ref }}'
