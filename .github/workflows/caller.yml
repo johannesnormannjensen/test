@@ -13,5 +13,8 @@ jobs:
 
   call-callme:
     uses: ./.github/workflows/callme.yml
+    strategy:
+      matrix:
+        something: [a, b]
     with:
       name: '${{github.event.inputs.name}}'
