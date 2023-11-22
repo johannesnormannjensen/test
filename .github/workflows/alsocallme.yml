@@ -1,0 +1,34 @@
+name: Also call me
+
+on:
+  workflow_call:
+    inputs:
+      name: 
+        description: Just some name
+        type: string
+        required: true
+    
+jobs: 
+
+  do-the-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+            
+      - name: 'exit 1 if name is "a"'
+        run: |
+          if [ "${{ inputs.name }}" = "a" ]; then
+              exit 1
+          fi
+        
+      - name: Echo sha
+        run: echo "${{github.sha}}"
+        
+      - name: Echo ref
+        run: echo "${{ github.ref }}"
+        
+      - name: Echo event
+        run: echo "${{ toJSON(github.event) }}"
+        
+      - name: Echo name
+        run: echo "${{ github.event.inputs.name }}"
