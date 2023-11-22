@@ -10,25 +10,11 @@ on:
     
 jobs: 
 
-  do-the-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-            
-      - name: 'exit 1 if name is "a"'
-        run: |
-          if [ "${{ inputs.name }}" = "a" ]; then
-              exit 1
-          fi
-        
-      - name: Echo sha
-        run: echo "${{github.sha}}"
-        
-      - name: Echo ref
-        run: echo "${{ github.ref }}"
-        
-      - name: Echo event
-        run: echo "${{ toJSON(github.event) }}"
-        
-      - name: Echo name
-        run: echo "${{ github.event.inputs.name }}"
+  call-alsocallme:
+    strategy:
+      fail-fast: false
+      matrix: 
+        ref: [main, develop]
+    uses: ./.github/workflows/alsocallme.yml
+    with:
+      name: '${{ inputs.name }}'
