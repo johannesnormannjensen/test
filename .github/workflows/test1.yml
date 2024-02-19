@@ -1,0 +1,18 @@
+name: Test1
+
+on: 
+  workflow_dispatch:
+
+env: 
+  HELLOWITHYOU: 'something'
+
+jobs:
+
+  checkout-job:
+    environment: ${{ github.event.inputs.environment }}
+    runs-on: ubuntu-latest
+    outputs:
+      customers: ${{ steps.customers.outputs.customers }}
+    steps:
+      - name: Checkout files except .github
+        uses: ./github/actions/hello-world-composite
