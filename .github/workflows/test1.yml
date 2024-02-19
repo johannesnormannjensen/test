@@ -9,10 +9,7 @@ env:
 jobs:
 
   checkout-job:
-    environment: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
-    outputs:
-      customers: ${{ steps.customers.outputs.customers }}
     steps:
       - uses: actions/checkout@v4
-      - uses: ./github/actions/hello-world-composite
+      - uses: .github/actions/hello-world-composite
