@@ -14,5 +14,5 @@ jobs:
     outputs:
       customers: ${{ steps.customers.outputs.customers }}
     steps:
-      - name: Checkout files except .github
-        uses: ./github/actions/hello-world-composite
+      - uses: actions/checkout@v4
+      - uses: ./github/actions/hello-world-composite
