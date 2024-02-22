@@ -12,4 +12,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/hello-world-composite
+      - uses: johannesnormannjensen/test/.github/actions/hello-world-composite@${{ github.ref }}
