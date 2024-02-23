@@ -2,6 +2,11 @@ name: Test1
 
 on: 
   workflow_dispatch:
+    inputs:
+      name:
+        description: 'a name'
+        type: string
+        required: true
 
 env: 
   HELLOWITHYOU: 'something'
@@ -9,7 +14,6 @@ env:
 jobs:
 
   checkout-job:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: johannesnormannjensen/test/.github/actions/hello-world-composite@main
+    uses: johannesnormannjensen/test/.github/workflows/callme.yml@${{ github.sha }}
+    with:
+      name: ${{ github.event.inputs.name }}
