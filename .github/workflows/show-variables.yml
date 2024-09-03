@@ -15,4 +15,7 @@ jobs:
           script: |
             core.info(`env vars`)
             core.info(process.env['GITHUB_ENV'])
+
+            
+            core.info(`current dir: ${process.cwd()}`)
   
