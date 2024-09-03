@@ -14,5 +14,5 @@ jobs:
         with:
           script: |
             core.info(`env vars`)
-            core.info(Object.keys(process.env))
+            core.info(Object.keys(process.env['GITHUB_ENV']))
   
