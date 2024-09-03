@@ -32,6 +32,10 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            core.info(`env vars`)
+            core.info(Object.keys(process.env))
+  
+            
             core.info(`TESTING_VARIABLES: ${{ vars[matrix.arr-value] }}`);
             core.info(`first name: ${{ fromJSON(vars[matrix.arr-value])[0].name }}`);
             const firstEnabled = JSON.parse('${{ fromJSON(vars[matrix.arr-value])[0].enabled }}');
