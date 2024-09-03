@@ -13,8 +13,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            core.info(`env vars`)
-            core.info(process.env['GITHUB_ENV'])
+            core.info(`GITHUB_WORKSPACE`)
+            core.info(process.env['GITHUB_WORKSPACE'])
 
             
             core.info(`current dir: ${process.cwd()}`)
