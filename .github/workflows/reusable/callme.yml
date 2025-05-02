@@ -1,0 +1,20 @@
+name: Call me
+
+on:
+  workflow_call:
+    inputs:
+      name: 
+        description: Just some name
+        type: string
+        required: true
+    
+jobs: 
+
+  call-alsocallme:
+    strategy:
+      fail-fast: false
+      matrix: 
+        ref: [main, develop]
+    uses: ./.github/workflows/alsocallme.yml
+    with:
+      name: '${{ inputs.name }}'

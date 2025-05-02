@@ -12,7 +12,7 @@ on:
 jobs: 
 
   call-callme:
-    uses: ./.github/workflows/callme.yml
+    uses: ./.github/workflows/reusable/callme.yml
     strategy:
       matrix:
         something: [a, b]
